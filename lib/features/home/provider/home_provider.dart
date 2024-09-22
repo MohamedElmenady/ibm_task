@@ -32,6 +32,12 @@ class HomeProvider with ChangeNotifier {
     }
   }
 
+  Future<void> refreshData() async {
+    home.clear();
+    await getData();
+    notifyListeners();
+  }
+
   List<HomeModel> get filterMessages {
     if (searchQuery.isEmpty) {
       return home;

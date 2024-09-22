@@ -20,125 +20,129 @@ class HomeScreen extends StatelessWidget {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListView(children: [
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppString.sponsord,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 16),
-                        ),
-                        verticalSpace(12),
-                        Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const CircleAvatar(
-                                foregroundImage:
-                                    AssetImage('assets/images/images.jpg'),
-                                radius: 30,
-                              ),
-                              horizontalSpace(4),
-                              Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            AppString.orignalCloth,
-                                            style: const TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          horizontalSpace(20),
-                                          IconButton(
-                                            onPressed: () {
-                                              model.expandUnexpand();
-                                            },
-                                            icon: Icon(
-                                              model.isVisible
-                                                  ? Icons.expand_less
-                                                  : Icons.expand_more,
-                                              color: ColorsManager.gray,
-                                            ),
-                                          ),
-                                        ]),
-                                    Visibility(
-                                      visible: model.isVisible,
-                                      child: Text(
-                                        AppString.favorits,
-                                        textAlign: TextAlign.start,
-                                        style: TextStyles.font14GrayRegular,
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: model.isVisible,
-                                      child: SizedBox(
-                                        //height: 150,
-                                        width: 170,
-                                        child: Image.asset(
-                                            'assets/images/download.png'),
-                                      ),
-                                    ),
-                                    verticalSpace(4),
-                                    Visibility(
-                                      visible: model.isVisible,
-                                      child: Row(
+            : RefreshIndicator(
+                onRefresh: () => model.refreshData(),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView(children: [
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppString.sponsord,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                          verticalSpace(12),
+                          Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const CircleAvatar(
+                                  foregroundImage:
+                                      AssetImage('assets/images/images.jpg'),
+                                  radius: 30,
+                                ),
+                                horizontalSpace(4),
+                                Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.only(top: 8),
-                                              child: Text(
-                                                AppString.freeShoping,
-                                                textAlign: TextAlign.start,
-                                                style: TextStyles
-                                                    .font13GrayRegular,
+                                            Text(
+                                              AppString.orignalCloth,
+                                              style: const TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            horizontalSpace(20),
+                                            IconButton(
+                                              onPressed: () {
+                                                model.expandUnexpand();
+                                              },
+                                              icon: Icon(
+                                                model.isVisible
+                                                    ? Icons.expand_less
+                                                    : Icons.expand_more,
+                                                color: ColorsManager.gray,
                                               ),
                                             ),
-                                            horizontalSpace(34),
-                                            TextButton(
-                                              onPressed: () async {
-                                                await CashNetwork.deletAll(
-                                                    key: 'token');
-                                                debugPrint(ApiConstant.token);
-                                              },
-                                              child: Text(AppString.shopNow),
-                                            ),
                                           ]),
-                                    ),
-                                  ]),
-                            ]),
-                      ]),
-                  verticalSpace(12),
-                  Text(AppString.moreConversation,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16)),
-                  ListView.builder(
-                      itemCount: filteredMessages.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        HomeModel messages = filteredMessages[index];
-                        return ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          leading: const CircleAvatar(
-                            foregroundImage:
-                                AssetImage('assets/images/images.jpg'),
-                            radius: 25,
-                          ),
-                          title:
-                              Text("${messages.userName!} (${messages.id!})"),
-                          subtitle: Text(messages.message!),
-                          trailing: const Text("Fri"),
-                        );
-                      }),
-                ]),
+                                      Visibility(
+                                        visible: model.isVisible,
+                                        child: Text(
+                                          AppString.favorits,
+                                          textAlign: TextAlign.start,
+                                          style: TextStyles.font14GrayRegular,
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: model.isVisible,
+                                        child: SizedBox(
+                                          //height: 150,
+                                          width: 170,
+                                          child: Image.asset(
+                                              'assets/images/download.png'),
+                                        ),
+                                      ),
+                                      verticalSpace(4),
+                                      Visibility(
+                                        visible: model.isVisible,
+                                        child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8),
+                                                child: Text(
+                                                  AppString.freeShoping,
+                                                  textAlign: TextAlign.start,
+                                                  style: TextStyles
+                                                      .font13GrayRegular,
+                                                ),
+                                              ),
+                                              horizontalSpace(34),
+                                              TextButton(
+                                                onPressed: () async {
+                                                  await CashNetwork.deletAll(
+                                                      key: 'token');
+                                                  debugPrint(ApiConstant.token);
+                                                },
+                                                child: Text(AppString.shopNow),
+                                              ),
+                                            ]),
+                                      ),
+                                    ]),
+                              ]),
+                        ]),
+                    verticalSpace(12),
+                    Text(AppString.moreConversation,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16)),
+                    ListView.builder(
+                        itemCount: filteredMessages.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          HomeModel messages = filteredMessages[index];
+                          return ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            leading: const CircleAvatar(
+                              foregroundImage:
+                                  AssetImage('assets/images/images.jpg'),
+                              radius: 25,
+                            ),
+                            title:
+                                Text("${messages.userName!} (${messages.id!})"),
+                            subtitle: Text(messages.message!),
+                            trailing: const Text("Fri"),
+                          );
+                        }),
+                  ]),
+                ),
               );
       },
     );
