@@ -16,12 +16,3 @@ class HomeModel {
     id = data['id'];
   }
 }
-
-/*
-"message": "Human Brand Officer",
-"userName": "Gerardo Abbott",
-"image": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1097.jpg",
-"time": "time 1",
-"isActive": false,
-"id": "1"
-*/
