@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:second_app/core/helper/extention.dart';
 import 'package:second_app/core/helper/spacing.dart';
 import 'package:second_app/core/network/api_constant.dart';
 import 'package:second_app/core/network/cach_network.dart';
+import 'package:second_app/core/routing/routes.dart';
 import 'package:second_app/core/strings/app_string.dart';
 import 'package:second_app/core/theming/colors.dart';
 import 'package:second_app/core/theming/styles.dart';
@@ -110,6 +112,9 @@ class HomeScreen extends StatelessWidget {
                                                   await CashNetwork.deletAll(
                                                       key: 'token');
                                                   debugPrint(ApiConstant.token);
+                                                  // ignore: use_build_context_synchronously
+                                                  context.pushReplacementNamed(
+                                                      Routes.loginScreen);
                                                 },
                                                 child: Text(AppString.shopNow),
                                               ),
