@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:second_app/core/routing/app_route.dart';
-import 'package:second_app/first_screen.dart';
+import 'package:second_app/onBordeing.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
