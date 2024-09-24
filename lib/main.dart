@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:second_app/core/network/api_constant.dart';
 import 'package:second_app/core/network/cach_network.dart';
 import 'package:second_app/core/routing/app_route.dart';
-import 'package:second_app/first_screen.dart';
+import 'package:second_app/onBordeing.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,7 +11,7 @@ void main() async {
   // await CashNetwork.delet(key: 'token');
   debugPrint("toke : ${ApiConstant.token}");
   runApp(
-    FirstScreen(
+    OnBordeingScreen(
       appRoute: AppRoute(),
     ),
   );

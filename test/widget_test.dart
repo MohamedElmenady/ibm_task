@@ -13,7 +13,7 @@ import 'package:second_app/onBordeing.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(FirstScreen(
+    await tester.pumpWidget(OnBordeingScreen(
       appRoute: AppRoute(),
     ));
 

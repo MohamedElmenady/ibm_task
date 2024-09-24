@@ -8,9 +8,9 @@ import 'package:second_app/core/strings/app_string.dart';
 import 'package:second_app/core/theming/colors.dart';
 import 'package:second_app/features/home/provider/home_provider.dart';
 
-class FirstScreen extends StatelessWidget {
+class OnBordeingScreen extends StatelessWidget {
   final AppRoute appRoute;
-  const FirstScreen({super.key, required this.appRoute});
+  const OnBordeingScreen({super.key, required this.appRoute});
 
   @override
   Widget build(BuildContext context) {
