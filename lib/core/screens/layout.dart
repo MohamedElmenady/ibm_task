@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:second_app/core/helper/spacing.dart';
 import 'package:second_app/core/screens/active_screen.dart';
 import 'package:second_app/core/screens/call_screen.dart';
 import 'package:second_app/core/screens/groups_screen.dart';
 import 'package:second_app/core/strings/app_string.dart';
 import 'package:second_app/features/home/provider/home_provider.dart';
+import 'package:second_app/features/home/provider/home_state.dart';
 import 'package:second_app/features/home/ui/home_screen.dart';
 
 class MyTabScreen extends StatelessWidget {
   const MyTabScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeProvider>(
-      builder: (context, model, child) {
+    var cubit = BlocProvider.of<HomeProvider>(context);
+    return BlocConsumer<HomeProvider, HomeState>(
+      listener: (context, state) {},
+      builder: (context, state) {
         return DefaultTabController(
           length: 4,
           child: Scaffold(
@@ -31,7 +34,7 @@ class MyTabScreen extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       onChanged: (value) {
-                        model.updateSearchQuery(value);
+                        cubit.updateSearchQuery(value);
                         debugPrint(value);
                       },
                       decoration: InputDecoration(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:second_app/core/helper/extention.dart';
 import 'package:second_app/core/helper/spacing.dart';
 import 'package:second_app/core/network/api_constant.dart';
@@ -10,20 +10,38 @@ import 'package:second_app/core/theming/colors.dart';
 import 'package:second_app/core/theming/styles.dart';
 import 'package:second_app/features/home/data/home_model.dart';
 import 'package:second_app/features/home/provider/home_provider.dart';
+import 'package:second_app/features/home/provider/home_state.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeProvider>(
-      builder: (context, model, child) {
-        List<HomeModel> filteredMessages = model.filterMessages;
-        return model.home.isEmpty
+    var cubit = BlocProvider.of<HomeProvider>(context);
+    return BlocConsumer<HomeProvider, HomeState>(
+      listener: (context, state) {
+        if (state is LoginInternetDisconnected) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                title: Text(AppString.error),
+                content: Text(state.error),
+                actions: [
+                  TextButton(
+                    child: Text(AppString.ok),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ]),
+          );
+        }
+      },
+      builder: (context, state) {
+        List<HomeModel> filteredMessages = cubit.filterMessages;
+        return cubit.home.isEmpty
             ? const Center(
                 child: CircularProgressIndicator(),
               )
             : RefreshIndicator(
-                onRefresh: () => model.refreshData(),
+                onRefresh: () => cubit.refreshData(),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListView(children: [
@@ -62,10 +80,10 @@ class HomeScreen extends StatelessWidget {
                                             horizontalSpace(20),
                                             IconButton(
                                               onPressed: () {
-                                                model.expandUnexpand();
+                                                cubit.expandUnexpand();
                                               },
                                               icon: Icon(
-                                                model.isVisible
+                                                cubit.isVisible
                                                     ? Icons.expand_less
                                                     : Icons.expand_more,
                                                 color: ColorsManager.gray,
@@ -73,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                                             ),
                                           ]),
                                       Visibility(
-                                        visible: model.isVisible,
+                                        visible: cubit.isVisible,
                                         child: Text(
                                           AppString.favorits,
                                           textAlign: TextAlign.start,
@@ -81,7 +99,7 @@ class HomeScreen extends StatelessWidget {
                                         ),
                                       ),
                                       Visibility(
-                                        visible: model.isVisible,
+                                        visible: cubit.isVisible,
                                         child: SizedBox(
                                           //height: 150,
                                           width: 170,
@@ -91,7 +109,7 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                       verticalSpace(4),
                                       Visibility(
-                                        visible: model.isVisible,
+                                        visible: cubit.isVisible,
                                         child: Row(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,

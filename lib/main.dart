@@ -8,7 +8,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CashNetwork.intialise();
   ApiConstant.token = CashNetwork.get(key: 'token');
-  // await CashNetwork.delet(key: 'token');
+  //await CashNetwork.delet(key: 'token');
   debugPrint("toke : ${ApiConstant.token}");
   runApp(
     OnBordeingScreen(

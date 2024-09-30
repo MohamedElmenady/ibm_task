@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:second_app/core/screens/layout.dart';
 import 'package:second_app/features/login/provider/login_provider.dart';
 import 'package:second_app/features/login/ui/login_screen.dart';
@@ -11,8 +11,10 @@ class AppRoute {
     switch (settings.name) {
       case Routes.loginScreen:
         return MaterialPageRoute(
-          builder: (_) => (ChangeNotifierProvider(
-              create: (context) => LoginModel(), child: const LoginScreen1())),
+          builder: (_) => BlocProvider(
+            create: (context) => LoginModel(),
+            child: const LoginScreen1(),
+          ),
         );
 
       case Routes.layout:
